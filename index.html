@@ -451,20 +451,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
       <a class="btn btn-ghost" href="#services">Our services</a>
     </div>
 
+    <!-- NUMBERS: replace all three with your real figures before this goes public -->
     <div class="stats">
       <div class="stat">
         <b data-count="180">0</b>
         <p>Visas processed</p>
-        <small>Live · updated daily</small>
+        <small>Employers and workers combined</small>
       </div>
       <div class="stat">
-        <b data-count="26">0</b>
-        <p>Happy clients</p>
-        <small>Across 14 countries</small>
+        <b data-count="98" data-suffix="%">0</b>
+        <p>Approval rate</p>
+        <small>Applications approved</small>
       </div>
       <div class="stat">
         <b data-count="21">0</b>
-        <p>Avg. days to approval</p>
+        <p>Avg. working days to approval</p>
         <small>From signed contract</small>
       </div>
     </div>
@@ -718,12 +719,13 @@ function runCounters(){
   counted = true;
   document.querySelectorAll('[data-count]').forEach(function(el){
     var target = parseInt(el.dataset.count, 10);
+    var suffix = el.dataset.suffix || '';
     var start = null, dur = 1600;
     function tick(ts){
       if (!start) start = ts;
       var p = Math.min((ts - start) / dur, 1);
       var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(target * eased);
+      el.textContent = Math.round(target * eased) + suffix;
       if (p < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
