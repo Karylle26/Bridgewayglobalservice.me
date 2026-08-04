@@ -15,20 +15,26 @@
 <meta name="ICBM" content="42.4304, 19.2594">
 <link rel="canonical" href="https://bridgewayglobalservices.me/">
 
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bridgeway Global Services">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://bridgewayglobalservices.me/">
 <meta property="og:title" content="Work Visas &amp; Permits in Montenegro — Bridgeway Global Services">
 <meta property="og:description" content="End-to-end work visas, residence (boravak) and working permits in Montenegro — for employers hiring abroad and workers relocating from the Philippines.">
-<meta property="og:image" content="https://bridgewayglobal.services/assets/og-image.png">
+<meta property="og:image" content="https://bridgewayglobalservices.me/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Work Visas &amp; Permits in Montenegro — Bridgeway Global Services">
 <meta name="twitter:description" content="End-to-end work visas, residence (boravak) and working permits in Montenegro — for employers hiring abroad and workers from the Philippines.">
-<meta name="twitter:image" content="https://bridgewayglobal.services/assets/og-image.png">
+<meta name="twitter:image" content="https://bridgewayglobalservices.me/assets/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +47,8 @@
   "name": "Bridgeway Global Services",
   "description": "Visa, residence permit (boravak) and working permit processing in Montenegro for employers and foreign workers.",
   "url": "https://bridgewayglobalservices.me/",
+  "logo": "https://bridgewayglobalservices.me/assets/logo.png",
+  "image": "https://bridgewayglobalservices.me/assets/og-image.png",
   "email": "info@bridgewayglobal.services",
   "telephone": "+63 936 934 9535",
   "areaServed": "Montenegro",
@@ -97,11 +105,11 @@ header{
 .nav{display:flex;align-items:center;gap:28px;height:72px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
 .mark{
-  width:38px;height:38px;border-radius:9px;flex:none;
-  background:var(--green-900);color:var(--gold);
-  display:grid;place-items:center;
-  font-family:var(--serif);font-size:20px;font-weight:600;
+  width:42px;height:42px;border-radius:10px;flex:none;
+  object-fit:cover;display:block;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1);
 }
+.brand:hover .mark{transform:scale(1.05)}
 .brand-txt strong{display:block;font-family:var(--serif);font-size:16.5px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
 .brand-txt span{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .nav-links{display:flex;gap:30px}
@@ -415,7 +423,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top">
-      <span class="mark">B</span>
+      <img class="mark" src="assets/logo.png" alt="Bridgeway Global Services logo" width="42" height="42">
       <span class="brand-txt">
         <strong>Bridgeway Global</strong>
         <span>Visa &amp; Immigration Services</span>
