@@ -7,7 +7,7 @@
 
 <meta name="description" content="Bridgeway Global Services handles work visas, residence permits (boravak) and working permits in Montenegro end-to-end — for employers hiring abroad and workers relocating from the Philippines.">
 <meta name="keywords" content="work visa Montenegro, work permit Montenegro, boravak, residence permit Montenegro, hire foreign workers Montenegro, immigration services Podgorica, Filipino workers Montenegro, jobs in Montenegro for Filipinos, employer visa Montenegro">
-<meta name="author" content="Bridgeway Global Services d.o.o.">
+<meta name="author" content="Bridgeway Global Services">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="theme-color" content="#1A3D2B">
 <meta name="geo.region" content="ME">
@@ -38,7 +38,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "Bridgeway Global Services d.o.o.",
+  "name": "Bridgeway Global Services",
   "description": "Visa, residence permit (boravak) and working permit processing in Montenegro for employers and foreign workers.",
   "url": "https://bridgewayglobalservices.me/",
   "email": "info@bridgewayglobal.services",
@@ -199,17 +199,6 @@ h2 em{font-style:italic;color:var(--gold);font-weight:400}
 }
 .mv-card p{color:rgba(247,244,236,.82);font-weight:300;font-size:1.02rem}
 
-/* Steps */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin-top:60px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.step{background:var(--cream);padding:40px 28px 44px;transition:background .25s}
-.step:hover{background:var(--cream-2)}
-.step .num{
-  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--gold);font-weight:600;margin-bottom:22px;
-}
-.step h3{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--green-900);margin-bottom:12px;letter-spacing:-.01em}
-.step p{font-size:14.5px;color:var(--muted);font-weight:300}
-
 /* Services */
 #services{background:var(--cream-2)}
 .svc{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px}
@@ -224,17 +213,56 @@ h2 em{font-style:italic;color:var(--gold);font-weight:400}
 
 /* Partners */
 #partners{padding:88px 0}
-.partners-title{text-align:center;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:44px}
-.logos{display:grid;grid-template-columns:repeat(5,1fr);gap:26px}
-.logo{
-  background:var(--cream);border:1px solid var(--line);border-radius:12px;
-  padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;
-  transition:border-color .25s;
+.partners-title{text-align:center;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:48px}
+.partners-title::after{content:"";display:block;width:34px;height:1px;background:var(--gold);margin:16px auto 0}
+
+.marquee{
+  position:relative;overflow:hidden;padding:6px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
 }
-.logo:hover{border-color:var(--gold)}
-.logo img{height:52px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.72;transition:.25s}
-.logo:hover img{filter:none;opacity:1}
-.logo span{font-size:12px;color:var(--muted);text-align:center;font-weight:500}
+.marquee-track{
+  display:flex;align-items:stretch;gap:56px;width:max-content;
+  animation:slide 46s linear infinite;will-change:transform;
+}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes slide{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+.logo{
+  flex:none;width:132px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:15px;
+  text-decoration:none;
+}
+.logo .plate{
+  width:106px;height:106px;border-radius:16px;overflow:hidden;
+  background:var(--cream-2);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .4s ease,transform .4s cubic-bezier(.22,.61,.36,1);
+}
+.logo:hover .plate{border-color:rgba(201,162,39,.5);transform:translateY(-3px)}
+.logo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1);opacity:.62;
+  transition:filter .45s ease,opacity .45s ease,transform .45s ease;
+}
+.logo:hover img{filter:grayscale(0);opacity:1;transform:scale(1.05)}
+.logo .fallback{
+  display:none;font-family:var(--serif);font-size:1.12rem;font-weight:600;
+  color:var(--green-900);opacity:.4;letter-spacing:-.01em;text-align:center;
+  line-height:1.2;transition:opacity .4s ease;
+}
+.logo:hover .fallback{opacity:.85}
+.logo.noimg img{display:none}
+.logo.noimg .fallback{display:block}
+.logo span.name{
+  font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);text-align:center;font-weight:500;
+  opacity:.7;transition:opacity .4s ease,color .4s ease;
+}
+.logo:hover span.name{opacity:1;color:var(--green-800)}
+@media(prefers-reduced-motion:reduce){
+  .marquee-track{animation:none;flex-wrap:wrap;width:100%;justify-content:center;gap:40px 44px}
+}
 
 /* Contact */
 #contact{background:var(--green-900);color:var(--cream)}
@@ -292,10 +320,62 @@ footer{background:var(--green-800);color:rgba(247,244,236,.55);padding:34px 0;fo
 footer a{color:rgba(247,244,236,.75);text-decoration:none}
 footer a:hover{color:var(--gold-soft)}
 
+/* ---------- Motion & polish ---------- */
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:200;
+  background:var(--gold);transition:width .1s linear;
+}
+header.scrolled{box-shadow:0 1px 0 var(--line),0 10px 30px rgba(11,59,40,.05)}
+header.scrolled .nav{height:64px}
+.nav{transition:height .35s cubic-bezier(.22,.61,.36,1)}
+
+.reveal{opacity:0;transform:translateY(22px);
+  transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);
+  transition-delay:var(--d,0ms);
+}
+.reveal.in{opacity:1;transform:none}
+
+.hero .eyebrow,.hero h1,.hero .lede,.hero .hero-cta,.hero .stats{
+  opacity:0;transform:translateY(24px);
+  animation:rise .95s cubic-bezier(.22,.61,.36,1) forwards;
+}
+.hero .eyebrow{animation-delay:.05s}
+.hero h1{animation-delay:.16s}
+.hero .lede{animation-delay:.28s}
+.hero .hero-cta{animation-delay:.4s}
+.hero .stats{animation-delay:.52s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+.svc-card{position:relative;overflow:hidden}
+.svc-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;
+  transition:transform .5s cubic-bezier(.22,.61,.36,1);
+}
+.svc-card:hover::before{transform:scaleX(1)}
+
+.mv-card{transition:border-color .4s ease,background .4s ease}
+.mv-card:hover{border-color:rgba(227,199,101,.45);background:rgba(247,244,236,.06)}
+
+.btn{position:relative;overflow:hidden}
+.btn-solid,.btn-gold{transition:transform .25s cubic-bezier(.22,.61,.36,1),background .22s}
+.btn-solid:hover,.btn-gold:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero .eyebrow,.hero h1,.hero .lede,.hero .hero-cta,.hero .stats{opacity:1;transform:none;animation:none}
+}
+
 /* Responsive */
 @media(max-width:960px){
   .mv,.contact-grid{grid-template-columns:1fr}
-  .steps,.svc{grid-template-columns:repeat(2,1fr)}
+  .svc{grid-template-columns:repeat(2,1fr)}
   .logos{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:680px){
@@ -309,7 +389,7 @@ footer a:hover{color:var(--gold-soft)}
   .menu-btn{display:block}
   .nav .btn-solid{display:none}
   .hero{padding:130px 0 70px}
-  .stats,.steps,.svc{grid-template-columns:1fr}
+  .stats,.svc{grid-template-columns:1fr}
   .logos{grid-template-columns:repeat(2,1fr)}
   section{padding:72px 0}
   .panel{padding:24px 20px}
@@ -318,18 +398,19 @@ footer a:hover{color:var(--gold-soft)}
 </head>
 <body id="top">
 
+<div class="progress" id="progress"></div>
+
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top">
       <span class="mark">B</span>
       <span class="brand-txt">
         <strong>Bridgeway Global</strong>
-        <span>Visa &amp; Immigration · Montenegro</span>
+        <span>Visa &amp; Immigration Services</span>
       </span>
     </a>
     <nav class="nav-links" id="navLinks">
       <a href="#mission">Mission</a>
-      <a href="#how">How it works</a>
       <a href="#services">Services</a>
       <a href="#partners">Partners</a>
     </nav>
@@ -341,12 +422,12 @@ footer a:hover{color:var(--gold-soft)}
 <!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <div class="eyebrow">Visa &amp; Immigration · Podgorica, Montenegro</div>
+    <div class="eyebrow">Visa &amp; Immigration Services</div>
     <h1>Bridgeway <em>Global</em> Services</h1>
     <p class="lede">A concierge partner for businesses moving talent to Montenegro — visas, residency, and working permits handled end-to-end, with quiet precision.</p>
     <div class="hero-cta">
       <a class="btn btn-solid" href="#contact">Contact us</a>
-      <a class="btn btn-ghost" href="#how">How it works</a>
+      <a class="btn btn-ghost" href="#services">Our services</a>
     </div>
 
     <div class="stats">
@@ -383,37 +464,6 @@ footer a:hover{color:var(--gold-soft)}
       <div class="mv-card">
         <h3>Vision</h3>
         <p>A region where moving talent is as straightforward as moving capital. We want every employer who chooses Montenegro to feel they have a partner on the ground — calm, accountable, and ahead of every deadline.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="wrap">
-    <div class="sec-label">Process</div>
-    <h2>How <em>it works</em></h2>
-    <p class="sec-intro">Four stages, one accountable team. From the day you sign with us to the day your employee is fully permitted to work, you have a single point of contact.</p>
-    <div class="steps">
-      <div class="step">
-        <div class="num">Step 01</div>
-        <h3>Sign Contract</h3>
-        <p>Formalize our partnership and specify your visa and employment requirements.</p>
-      </div>
-      <div class="step">
-        <div class="num">Step 02</div>
-        <h3>Visa Documents</h3>
-        <p>We collect, verify, and submit all necessary visa documentation.</p>
-      </div>
-      <div class="step">
-        <div class="num">Step 03</div>
-        <h3>Employee Arrives</h3>
-        <p>The candidate arrives in Montenegro with their initial visa approved.</p>
-      </div>
-      <div class="step">
-        <div class="num">Step 04</div>
-        <h3>Working Permit</h3>
-        <p>We secure the final working permit and process the service fee.</p>
       </div>
     </div>
   </div>
@@ -464,17 +514,18 @@ footer a:hover{color:var(--gold-soft)}
 <section id="partners">
   <div class="wrap">
     <div class="partners-title">Trusted by employers and partners</div>
-    <div class="logos">
-      <div class="logo"><img src="assets/partners/noa.jpg" alt="NOA" loading="lazy"><span>NOA</span></div>
-      <div class="logo"><img src="assets/partners/wulfenia.jpg" alt="Wulfenia Hotel" loading="lazy"><span>Wulfenia Hotel</span></div>
-      <div class="logo"><img src="assets/partners/casa-del-mare.jpg" alt="Casa del Mare Boutique Hotels" loading="lazy"><span>Casa del Mare</span></div>
-      <div class="logo"><img src="assets/partners/gastro-pub.jpg" alt="B Gastro Pub" loading="lazy"><span>B Gastro Pub</span></div>
-      <div class="logo"><img src="assets/partners/talia.jpg" alt="Talia" loading="lazy"><span>Talia</span></div>
-      <div class="logo"><img src="assets/partners/heritage-grand.jpg" alt="Heritage Grand Perast" loading="lazy"><span>Heritage Grand</span></div>
-      <div class="logo"><img src="assets/partners/uniqa.png" alt="Uniqa insurance partner" loading="lazy"><span>Uniqa — insurance</span></div>
-      <div class="logo"><img src="assets/partners/adriatica.jpg" alt="Adriatica" loading="lazy"><span>Adriatica</span></div>
-      <div class="logo"><img src="assets/partners/palm-beach.jpg" alt="Monte Palm Beach" loading="lazy"><span>Monte Palm Beach</span></div>
-      <div class="logo"><img src="assets/partners/la-unica.jpg" alt="La Unica" loading="lazy"><span>La Unica</span></div>
+    <div class="marquee">
+      <div class="marquee-track" id="partnerTrack">
+        <div class="logo"><div class="plate"><img src="assets/partners/noa.jpg" alt="NOA" loading="lazy"><span class="fallback">NOA</span></div><span class="name">NOA</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/wulfenia.jpg" alt="Wulfenia Hotel" loading="lazy"><span class="fallback">Wulfenia</span></div><span class="name">Wulfenia Hotel</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/casa-del-mare.jpg" alt="Casa del Mare Boutique Hotels" loading="lazy"><span class="fallback">Casa del Mare</span></div><span class="name">Casa del Mare</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/gastro-pub.jpg" alt="B Gastro Pub" loading="lazy"><span class="fallback">B Gastro</span></div><span class="name">B Gastro Pub</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/talia.jpg" alt="Talia" loading="lazy"><span class="fallback">Talia</span></div><span class="name">Talia</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/heritage-grand.jpg" alt="Heritage Grand Perast" loading="lazy"><span class="fallback">Heritage Grand</span></div><span class="name">Heritage Grand</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/uniqa.jpg" alt="Uniqa insurance partner" loading="lazy"><span class="fallback">Uniqa</span></div><span class="name">Uniqa — insurance</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/adriatica.jpg" alt="Adriatica Restaurant" loading="lazy"><span class="fallback">Adriatica</span></div><span class="name">Adriatica</span></div>
+        <div class="logo"><div class="plate"><img src="assets/partners/palm-beach.jpg" alt="Monte Palm Beach Resort &amp; Spa" loading="lazy"><span class="fallback">Palm Beach</span></div><span class="name">Monte Palm Beach</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -496,10 +547,6 @@ footer a:hover{color:var(--gold-soft)}
         <div class="cblock">
           <h3>Phone &amp; WhatsApp</h3>
           <div class="row"><span>WhatsApp / Mobile</span><a href="tel:+639369349535">+63 936 934 9535</a></div>
-        </div>
-        <div class="cblock">
-          <h3>Office</h3>
-          <div class="row"><span>Location</span><span style="color:var(--cream)">Podgorica, Montenegro</span></div>
         </div>
       </div>
 
@@ -574,7 +621,7 @@ footer a:hover{color:var(--gold-soft)}
 
 <footer>
   <div class="wrap foot">
-    <div>© <span id="yr">2026</span> Bridgeway Global Services d.o.o. · Podgorica, Montenegro</div>
+    <div>© <span id="yr">2026</span> Bridgeway Global Services</div>
     <div><a href="mailto:info@bridgewayglobal.services">info@bridgewayglobal.services</a></div>
   </div>
 </footer>
@@ -608,6 +655,79 @@ document.querySelectorAll('.tab').forEach(function(tab){
     document.getElementById('pane-' + tab.dataset.pane).classList.add('on');
   });
 });
+
+var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// scroll progress bar + header state
+(function(){
+  var bar = document.getElementById('progress');
+  var head = document.querySelector('header');
+  var ticking = false;
+  function update(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    if (bar) bar.style.width = pct + '%';
+    if (head) head.classList.toggle('scrolled', h.scrollTop > 12);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+
+// staggered reveal on scroll
+(function(){
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+  var groups = [
+    ['.sec-label', 0], ['h2', 60], ['.sec-intro', 120],
+    ['.mv-card', 0], ['.svc-card', 0],
+    ['.partners-title', 0], ['.marquee', 80],
+    ['.cblock', 0], ['.panel', 120]
+  ];
+  var seen = new Set();
+  groups.forEach(function(g){
+    document.querySelectorAll(g[0]).forEach(function(el, i){
+      if (seen.has(el)) return;
+      seen.add(el);
+      el.classList.add('reveal');
+      el.style.setProperty('--d', (g[1] + i * 90) + 'ms');
+    });
+  });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+
+// partner marquee — show name if a logo image is missing
+function markMissing(img){
+  var card = img.closest('.logo');
+  if (card) card.classList.add('noimg');
+}
+document.querySelectorAll('#partnerTrack img').forEach(function(img){
+  img.addEventListener('error', function(){ markMissing(img); });
+  if (img.complete && img.naturalWidth === 0) markMissing(img);
+});
+
+// duplicate the row once so the loop is seamless
+(function(){
+  var track = document.getElementById('partnerTrack');
+  if (!track) return;
+  if (reduceMotion) return;
+  track.querySelectorAll('.logo').forEach(function(card){
+    var copy = card.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    copy.querySelectorAll('img').forEach(function(img){
+      img.addEventListener('error', function(){ markMissing(img); });
+      if (img.complete && img.naturalWidth === 0) markMissing(img);
+    });
+    track.appendChild(copy);
+  });
+})();
 
 // counters
 var counted = false;
