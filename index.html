@@ -135,8 +135,6 @@ header{
 .btn-solid:hover{background:var(--green-600)}
 .btn-ghost{border-color:var(--green-900);color:var(--green-900);background:transparent}
 .btn-ghost:hover{background:var(--green-900);color:var(--cream)}
-.btn-gold{background:var(--gold);color:var(--green-900);font-weight:600}
-.btn-gold:hover{background:var(--gold-soft)}
 .menu-btn{display:none;background:none;border:0;font-size:24px;color:var(--green-900);cursor:pointer;line-height:1}
 .lang{display:flex;align-items:center;gap:5px}
 .lang button{
@@ -397,8 +395,8 @@ header.scrolled .nav{height:64px}
 .mv-card:hover{border-color:rgba(227,199,101,.45);background:rgba(247,244,236,.06)}
 
 .btn{position:relative;overflow:hidden}
-.btn-solid,.btn-gold{transition:transform .25s cubic-bezier(.22,.61,.36,1),background .22s}
-.btn-solid:hover,.btn-gold:hover{transform:translateY(-2px)}
+.btn-solid{transition:transform .25s cubic-bezier(.22,.61,.36,1),background .22s}
+.btn-solid:hover{transform:translateY(-2px)}
 .btn:active{transform:translateY(0)}
 
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
@@ -425,7 +423,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .mv{grid-template-columns:1fr}
   .ways{grid-template-columns:1fr}
   .svc{grid-template-columns:repeat(2,1fr)}
-  .logos{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:680px){
   .nav{gap:16px}
@@ -443,9 +440,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .nav .btn-solid{display:none}
   .hero{padding:130px 0 70px}
   .stats,.svc{grid-template-columns:1fr}
-  .logos{grid-template-columns:repeat(2,1fr)}
   section{padding:72px 0}
-  .panel{padding:24px 20px}
 }
 </style>
 </head>
