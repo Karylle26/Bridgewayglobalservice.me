@@ -50,7 +50,7 @@
   "logo": "https://bridgewayglobalservices.me/assets/logo.png",
   "image": "https://bridgewayglobalservices.me/assets/og-image.png",
   "email": "info@bridgewayglobal.services",
-  "telephone": "+63 936 934 9535",
+  "telephone": "+382 69 943 977",
   "areaServed": "Montenegro",
   "sameAs": [
     "https://www.instagram.com/bridgewayglobalservices/",
@@ -159,6 +159,54 @@ header{
 .nav-social a:hover{opacity:1;color:var(--gold);transform:translateY(-2px)}
 .nav-social svg{width:17px;height:17px;display:block;fill:currentColor}
 
+/* ---------- Hero scene: Bay of Kotor ---------- */
+.scene{
+  position:absolute;right:0;bottom:0;left:0;
+  height:70%;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 42%,#000 88%,transparent);
+          mask-image:linear-gradient(180deg,transparent,#000 42%,#000 88%,transparent);
+  opacity:.5;
+}
+.scene svg{width:100%;height:100%;display:block}
+.hero{position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:1}
+
+@keyframes drift   {from{transform:translateX(-90px)} to{transform:translateX(900px)}}
+@keyframes drift2  {from{transform:translateX(-120px)} to{transform:translateX(940px)}}
+@keyframes sailBy  {
+  0%   {transform:translate(-70px,392px) rotate(-1.5deg)}
+  50%  {transform:translate(430px,386px) rotate(1.5deg)}
+  100% {transform:translate(950px,392px) rotate(-1.5deg)}
+}
+@keyframes swell   {from{transform:translateX(0)} to{transform:translateX(180px)}}
+@keyframes swell2  {from{transform:translateX(0)} to{transform:translateX(220px)}}
+@keyframes swell3  {from{transform:translateX(0)} to{transform:translateX(260px)}}
+@keyframes breathe {0%,100%{opacity:.26;r:46} 50%{opacity:.4;r:52}}
+@keyframes shimmer {0%,100%{opacity:.22} 50%{opacity:.42}}
+@keyframes flyBy   {
+  0%   {transform:translate(0,0);opacity:0}
+  8%   {opacity:.5}
+  50%  {transform:translate(230px,-34px)}
+  92%  {opacity:.5}
+  100% {transform:translate(470px,-14px);opacity:0}
+}
+
+.clouds  {animation:drift  74s linear infinite}
+.clouds2 {animation:drift2 96s linear infinite}
+.birds   {animation:flyBy  26s ease-in-out infinite}
+.boat    {animation:sailBy 46s linear infinite}
+.wave.a  {animation:swell  9s linear infinite}
+.wave.b  {animation:swell2 13s linear infinite}
+.wave.c  {animation:swell3 17s linear infinite}
+.sun     {animation:breathe 7s ease-in-out infinite}
+.glimmer {animation:shimmer 5s ease-in-out infinite}
+
+@media(max-width:680px){.scene{height:56%;opacity:.34}}
+@media(prefers-reduced-motion:reduce){
+  .clouds,.clouds2,.birds,.boat,.wave,.sun,.glimmer{animation:none}
+  .boat{transform:translate(430px,388px)}
+}
+
 /* ---------- Hero ---------- */
 .hero{
   padding:170px 0 90px;
@@ -190,11 +238,18 @@ h1 em{font-style:italic;color:var(--gold);font-weight:400}
 /* ---------- Stats ---------- */
 .stats{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--line);
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  gap:1px;background:rgba(11,59,40,.1);
+  border-top:1px solid rgba(11,59,40,.14);border-bottom:1px solid rgba(11,59,40,.14);
   margin-top:88px;
 }
-.stat{background:var(--cream);padding:38px 30px}
+.stat{
+  background:rgba(247,244,236,.52);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  padding:38px 30px;
+  transition:background .4s ease;
+}
+.stat:hover{background:rgba(247,244,236,.78)}
 .stat b{
   display:block;font-family:var(--serif);font-weight:600;
   font-size:clamp(2.2rem,4.4vw,3.2rem);color:var(--green-900);
@@ -247,50 +302,136 @@ h2 em{font-style:italic;color:var(--gold);font-weight:400}
 .svc-card p{font-size:14.5px;color:var(--muted);font-weight:300}
 
 /* Partners */
-#partners{padding:88px 0}
-.partners-title{text-align:center;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:48px}
+#partners{padding:96px 0}
+.partners-title{
+  text-align:center;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;margin-bottom:44px;
+}
 .partners-title::after{content:"";display:block;width:34px;height:1px;background:var(--gold);margin:16px auto 0}
 
-/* ---------- Partners grid ---------- */
-.pgrid{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:8px;
-}
+.pgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+
 .pcard{
   position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;
   background:var(--cream-2);
-  box-shadow:0 1px 2px rgba(11,59,40,.07);
-  transition:transform .45s cubic-bezier(.22,.61,.36,1),box-shadow .45s ease;
+  box-shadow:0 2px 6px rgba(11,59,40,.08);
+  opacity:0;transform:translateY(26px) scale(.94);
+  transition:
+    opacity .8s cubic-bezier(.22,.61,.36,1),
+    transform .8s cubic-bezier(.22,.61,.36,1),
+    box-shadow .45s ease,
+    filter .45s ease;
+  transition-delay:var(--d,0ms);
+}
+.pcard.in{opacity:1;transform:translateY(0) scale(1)}
+.pcard::after{
+  content:"";position:absolute;inset:0;border-radius:14px;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(11,59,40,.08);
+  transition:box-shadow .45s ease;
 }
 .pcard img{
   width:100%;height:100%;object-fit:cover;display:block;
-  transition:transform .6s cubic-bezier(.22,.61,.36,1),filter .45s ease;
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);
 }
-.pcard:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(11,59,40,.2)}
-.pcard:hover img{transform:scale(1.07)}
+
+.pgrid:has(.pcard:hover) .pcard:not(:hover){
+  opacity:.38;filter:saturate(.5);transform:scale(.97);
+}
+.pcard:hover{
+  transform:translateY(-10px) scale(1.04);
+  box-shadow:0 24px 46px rgba(11,59,40,.22);
+  z-index:2;transition-delay:0ms;
+}
+.pcard:hover::after{box-shadow:inset 0 0 0 2px rgba(201,162,39,.8)}
+.pcard:hover img{transform:scale(1.09)}
+
 .pcard-meta{
   position:absolute;left:0;right:0;bottom:0;
-  padding:34px 14px 14px;
+  padding:36px 12px 12px;
   display:flex;flex-direction:column;gap:2px;
-  background:linear-gradient(transparent,rgba(7,32,20,.9) 55%);
-  opacity:0;transform:translateY(10px);
-  transition:opacity .4s ease,transform .4s cubic-bezier(.22,.61,.36,1);
+  background:linear-gradient(transparent,rgba(4,20,12,.92) 58%);
+  opacity:0;transform:translateY(12px);
+  transition:opacity .45s ease,transform .45s cubic-bezier(.22,.61,.36,1);
 }
 .pcard:hover .pcard-meta,.pcard:focus-within .pcard-meta{opacity:1;transform:none}
 .pcard-meta b{
-  font-family:var(--serif);font-size:.95rem;font-weight:600;
+  font-family:var(--serif);font-size:.9rem;font-weight:600;
   color:var(--cream);letter-spacing:-.01em;line-height:1.2;
 }
 .pcard-meta em{
-  font-style:normal;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  font-style:normal;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
   color:var(--gold-soft);
 }
 
-@media(max-width:960px){.pgrid{grid-template-columns:repeat(4,1fr);gap:12px}}
+@media(max-width:1080px){.pgrid{grid-template-columns:repeat(4,1fr);gap:13px}}
 @media(max-width:680px){
+  #partners{padding:72px 0}
   .pgrid{grid-template-columns:repeat(3,1fr);gap:10px}
-  .pcard-meta{padding:24px 9px 10px}
-  .pcard-meta b{font-size:.8rem}
-  .pcard-meta em{font-size:8.5px;letter-spacing:.1em}
+  .pcard-meta{padding:24px 8px 9px}
+  .pcard-meta b{font-size:.74rem}
+  .pcard-meta em{font-size:8px;letter-spacing:.1em}
+  .pgrid:has(.pcard:hover) .pcard:not(:hover){opacity:1;filter:none;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .pcard{opacity:1;transform:none;transition:none}
+  .pcard:hover{transform:none}
+}
+
+/* ---------- Montenegro, drawn ---------- */
+#contact{position:relative;overflow:hidden}
+#contact .wrap{position:relative;z-index:1}
+.mne-map{
+  position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+  width:min(46%,470px);pointer-events:none;opacity:.5;
+}
+.mne-map svg{width:100%;height:auto;display:block}
+
+.mne-fill{fill:rgba(247,244,236,.045)}
+.mne-line{
+  fill:none;stroke:var(--gold);stroke-width:1.4;opacity:.55;
+  stroke-linejoin:round;
+  stroke-dasharray:1700;stroke-dashoffset:1700;
+}
+.mne-map.on .mne-line{animation:traceBorder 3.4s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes traceBorder{to{stroke-dashoffset:0}}
+
+.mne-coast{
+  fill:none;stroke:var(--gold-soft);stroke-width:2.6;opacity:0;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.mne-map.on .mne-coast{animation:coastGlow 4s ease-in-out 2.4s infinite}
+@keyframes coastGlow{0%,100%{opacity:.25}50%{opacity:.75}}
+
+.pin{opacity:0}
+.mne-map.on .pin{animation:pinIn .7s cubic-bezier(.3,1.5,.5,1) 2.1s forwards}
+@keyframes pinIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+.pin .dot{fill:var(--gold);filter:drop-shadow(0 0 6px rgba(201,162,39,.9))}
+.pin .ring{fill:none;stroke:var(--gold);stroke-width:1.6;opacity:0}
+.mne-map.on .pin .r1{animation:ripple 3.2s ease-out 2.7s infinite}
+.mne-map.on .pin .r2{animation:ripple 3.2s ease-out 4.3s infinite}
+@keyframes ripple{
+  0%{opacity:.85;transform-origin:172px 232px;transform:scale(.5)}
+  100%{opacity:0;transform-origin:172px 232px;transform:scale(3.4)}
+}
+
+.towns circle{fill:var(--gold-soft);opacity:0}
+.mne-map.on .towns circle{animation:townUp .5s ease forwards}
+.mne-map.on .towns circle:nth-child(1){animation-delay:2.5s}
+.mne-map.on .towns circle:nth-child(2){animation-delay:2.7s}
+.mne-map.on .towns circle:nth-child(3){animation-delay:2.9s}
+.mne-map.on .towns circle:nth-child(4){animation-delay:3.1s}
+.mne-map.on .towns circle:nth-child(5){animation-delay:3.3s}
+.mne-map.on .towns circle:nth-child(6){animation-delay:3.5s}
+@keyframes townUp{from{opacity:0}to{opacity:.6}}
+
+@media(max-width:1080px){.mne-map{width:44%;right:-70px;opacity:.32}}
+@media(max-width:680px){.mne-map{width:74%;right:-90px;top:auto;bottom:-30px;transform:none;opacity:.16}}
+@media(prefers-reduced-motion:reduce){
+  .mne-line{stroke-dashoffset:0}
+  .pin{opacity:1}
+  .towns circle{opacity:.6}
+  .mne-coast{opacity:.5}
+  .mne-map.on *{animation:none!important}
 }
 
 /* Contact */
@@ -440,6 +581,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .nav .btn-solid{display:none}
   .hero{padding:130px 0 70px}
   .stats,.svc{grid-template-columns:1fr}
+  .ways{grid-template-columns:1fr}
   section{padding:72px 0}
 }
 </style>
@@ -479,6 +621,72 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 <!-- HERO -->
 <div class="hero">
+  <div class="scene" aria-hidden="true">
+  <svg viewBox="0 0 900 520" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#F7F4EC"/><stop offset="100%" stop-color="#EFE7D4"/>
+      </linearGradient>
+      <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2C6B52"/><stop offset="100%" stop-color="#0B3B28"/>
+      </linearGradient>
+      <clipPath id="water"><rect x="0" y="330" width="900" height="190"/></clipPath>
+    </defs>
+
+    <rect width="900" height="520" fill="url(#sky)"/>
+    <circle class="sun" cx="640" cy="150" r="46" fill="#C9A227" opacity=".26"/>
+    <circle class="sun2" cx="640" cy="150" r="30" fill="#C9A227" opacity=".5"/>
+
+    <g class="clouds">
+      <ellipse cx="180" cy="110" rx="58" ry="15" fill="#0B3B28" opacity=".07"/>
+      <ellipse cx="230" cy="102" rx="40" ry="12" fill="#0B3B28" opacity=".07"/>
+      <ellipse cx="560" cy="78" rx="46" ry="12" fill="#0B3B28" opacity=".05"/>
+    </g>
+    <g class="clouds2">
+      <ellipse cx="760" cy="132" rx="52" ry="13" fill="#0B3B28" opacity=".06"/>
+      <ellipse cx="810" cy="126" rx="34" ry="10" fill="#0B3B28" opacity=".06"/>
+    </g>
+
+    <g class="birds">
+      <path d="M300 128 q7 -7 14 0 M314 128 q7 -7 14 0" fill="none" stroke="#0B3B28" stroke-width="2" opacity=".38"/>
+      <path d="M348 112 q6 -6 12 0 M360 112 q6 -6 12 0" fill="none" stroke="#0B3B28" stroke-width="1.8" opacity=".3"/>
+    </g>
+
+    <path d="M0 330 L0 205 L95 122 L185 200 L250 158 L340 232 L410 196 L470 246 L520 214 L600 268 L660 240 L740 288 L820 252 L900 300 L900 330 Z" fill="#1A3D2B" opacity=".2"/>
+    <path d="M0 330 L0 258 L80 190 L165 262 L235 224 L320 292 L400 254 L480 302 L560 268 L650 316 L730 286 L820 322 L900 296 L900 330 Z" fill="#0B3B28" opacity=".34"/>
+    <path d="M0 332 L0 300 L120 262 L210 306 L300 276 L390 318 L470 292 L570 326 L660 300 L760 330 L860 308 L900 322 L900 332 Z" fill="#0B3B28" opacity=".55"/>
+
+    <g opacity=".65">
+      <rect x="118" y="286" width="9" height="20" fill="#0B3B28"/>
+      <rect x="132" y="278" width="11" height="28" fill="#0B3B28"/>
+      <rect x="148" y="290" width="8" height="16" fill="#0B3B28"/>
+      <path d="M136 278 l6 -12 l6 12 Z" fill="#C9A227"/>
+      <rect x="140" y="252" width="2" height="16" fill="#0B3B28"/>
+    </g>
+
+    <rect x="0" y="330" width="900" height="190" fill="url(#sea)"/>
+
+    <g clip-path="url(#water)" opacity=".22">
+      <g class="wave a"><path d="M-900 372 q45 -9 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0" fill="none" stroke="#F7F4EC" stroke-width="2.4"/></g>
+      <g class="wave b"><path d="M-900 408 q55 -10 110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0 t110 0" fill="none" stroke="#F7F4EC" stroke-width="2"/></g>
+      <g class="wave c"><path d="M-900 452 q65 -11 130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0 t130 0" fill="none" stroke="#F7F4EC" stroke-width="1.7"/></g>
+    </g>
+
+    <g class="glimmer" opacity=".3">
+      <ellipse cx="640" cy="360" rx="70" ry="4" fill="#C9A227"/>
+      <ellipse cx="640" cy="382" rx="46" ry="3" fill="#C9A227"/>
+      <ellipse cx="640" cy="402" rx="28" ry="2.5" fill="#C9A227"/>
+    </g>
+
+    <g class="boat">
+      <path d="M0 0 l0 -46 l30 34 Z" fill="#F7F4EC" opacity=".92"/>
+      <path d="M-3 0 l0 -34 l-22 26 Z" fill="#E3C765" opacity=".85"/>
+      <path d="M-30 2 q30 13 62 0 Z" fill="#0B3B28"/>
+      <path d="M-30 2 q30 13 62 0" fill="none" stroke="#F7F4EC" stroke-width="2" opacity=".55"/>
+    </g>
+  </svg>
+</div>
+
   <div class="wrap">
     <div class="eyebrow" data-i18n="hero.eyebrow">Visa &amp; Immigration Services</div>
     <h1>Bridgeway <em>Global</em> Services</h1>
@@ -628,25 +836,48 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 <!-- CONTACT -->
 <section id="contact">
+  <div class="mne-map" aria-hidden="true">
+    <svg viewBox="0 0 420 380">
+      <path class="mne-fill" d="M8 232 L30 120 L190 30 L232 46 L300 80 L332 130 L392 150 L342 196 L272 212 L160 334 L140 302 L88 262 L72 244 L28 230 Z"/>
+      <path class="mne-line" d="M8 232 L30 120 L190 30 L232 46 L300 80 L332 130 L392 150 L342 196 L272 212 L160 334 L140 302 L88 262 L72 244 L28 230 Z"/>
+      <path class="mne-coast" d="M160 334 L140 302 L88 262 L72 244 L28 230 L8 232"/>
+
+      <g class="pin">
+        <circle class="ring r1" cx="172" cy="232" r="10"/>
+        <circle class="ring r2" cx="172" cy="232" r="10"/>
+        <circle class="dot" cx="172" cy="232" r="5.5"/>
+      </g>
+
+      <g class="towns">
+        <circle cx="74"  cy="236" r="3"/>
+        <circle cx="88"  cy="262" r="3"/>
+        <circle cx="60"  cy="222" r="3"/>
+        <circle cx="62"  cy="240" r="3"/>
+        <circle cx="140" cy="302" r="3"/>
+        <circle cx="28"  cy="230" r="3"/>
+      </g>
+    </svg>
+  </div>
+
   <div class="wrap">
     <div class="sec-label" data-i18n="contact.label">Get in touch</div>
     <h2 data-i18n-html="contact.h2">Contact <em>us</em></h2>
     <p class="sec-intro" data-i18n="contact.intro">Have questions about your account, a specific applicant, or our services? Reach out and a member of our team will get back to you promptly — usually within one business day.</p>
 
     <div class="ways">
-      <a class="way way-chat" href="https://wa.me/639369349535" target="_blank" rel="noopener noreferrer">
+      <a class="way way-chat" href="https://wa.me/38269943977" target="_blank" rel="noopener noreferrer">
         <span class="way-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35M12.05 21.8h-.01c-1.77 0-3.5-.48-5.02-1.38l-.36-.21-3.73.98 1-3.64-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.89 9.89-9.89 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.9 9.88M20.52 3.45A11.76 11.76 0 0 0 12.05 0C5.5 0 .18 5.33.17 11.88c0 2.09.55 4.14 1.59 5.94L.07 24l6.33-1.66a11.86 11.86 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88a11.8 11.8 0 0 0-3.42-8.45"/></svg></span>
         <span class="way-label" data-i18n="c.fast">Fastest reply</span>
         <span class="way-value">WhatsApp</span>
-        <span class="way-num">+63 936 934 9535</span>
+        <span class="way-num">+382 69 943 977</span>
         <span class="way-go" data-i18n-html="c.chat">Start a chat <i>&#8594;</i></span>
       </a>
 
-      <a class="way way-chat" href="viber://chat?number=%2B639369349535">
+      <a class="way way-chat" href="viber://chat?number=%2B38269943977">
         <span class="way-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6c-5.8 0-10.4 4.2-10.4 9.4 0 2.9 1.4 5.5 3.7 7.2v3.6c0 .6.7 1 1.2.6l3-2.3c.8.2 1.6.2 2.5.2 5.8 0 10.4-4.2 10.4-9.3S17.8 1.6 12 1.6z"/><path d="M15.9 14.9l-1-.9c-.3-.3-.8-.2-1 .1l-.5.7c-.2.2-.5.3-.8.1-.7-.3-1.4-.9-2-1.6-.6-.6-.9-1.3-1.1-1.9-.1-.3 0-.6.2-.7l.8-.4c.3-.2.5-.6.3-1l-.7-1.3c-.2-.4-.7-.5-1-.3l-.9.5c-.5.3-.7.8-.6 1.3.2 1.2.9 2.6 2.2 4 1.3 1.4 2.6 2.2 3.7 2.5.5.1 1 0 1.3-.4l.6-.8c.3-.3.2-.8-.2-1z" fill="var(--green-900)"/></svg></span>
         <span class="way-label" data-i18n="c.also">Also on</span>
         <span class="way-value">Viber</span>
-        <span class="way-num">+63 936 934 9535</span>
+        <span class="way-num">+382 69 943 977</span>
         <span class="way-go" data-i18n-html="c.viber">Open in Viber <i>&#8594;</i></span>
       </a>
 
@@ -824,7 +1055,7 @@ var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-moti
   var groups = [
     ['.sec-label', 0], ['h2', 60], ['.sec-intro', 120],
     ['.mv-card', 0], ['.svc-card', 0],
-    ['.partners-title', 0], ['.pcard', 0],
+    ['.partners-title', 0],
     ['.way', 0], ['.reply-note', 200]
   ];
   var seen = new Set();
@@ -842,6 +1073,51 @@ var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-moti
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+
+// the map draws itself when the contact section comes into view
+(function(){
+  var m = document.querySelector('.mne-map');
+  if (!m) return;
+  if (!('IntersectionObserver' in window)) { m.classList.add('on'); return; }
+  new IntersectionObserver(function(entries, obs){
+    entries.forEach(function(en){
+      if (en.isIntersecting){ m.classList.add('on'); obs.disconnect(); }
+    });
+  }, { threshold: 0.25 }).observe(m.closest('#contact'));
+})();
+
+// partner tiles arrive as a diagonal wave across the grid
+(function(){
+  var grid = document.querySelector('.pgrid');
+  if (!grid) return;
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.pcard'));
+
+  function cols(){
+    var w = window.innerWidth;
+    return w <= 680 ? 3 : (w <= 1080 ? 4 : 6);
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)){
+    cards.forEach(function(c){ c.classList.add('in'); });
+    return;
+  }
+
+  var n = cols();
+  cards.forEach(function(c, i){
+    var row = Math.floor(i / n), col = i % n;
+    c.style.setProperty('--d', ((row + col) * 65) + 'ms');   // diagonal, top-left first
+  });
+
+  var io = new IntersectionObserver(function(entries, obs){
+    entries.forEach(function(en){
+      if (en.isIntersecting){
+        cards.forEach(function(c){ c.classList.add('in'); });
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  io.observe(grid);
 })();
 
 // if a partner logo file is missing, hide the tile rather than show a broken image
