@@ -222,30 +222,46 @@ header{
 }
 .intro-inner{display:flex;flex-direction:column;align-items:center}
 .intro-mark{
-  width:clamp(92px,18vw,132px);height:clamp(92px,18vw,132px);
-  border-radius:24px;object-fit:cover;
-  opacity:0;transform:scale(.82);
-  animation:markIn .9s var(--ease-out) .15s forwards;
-}
-.intro-rule{
-  display:block;width:0;height:1px;background:var(--gold);
-  margin:32px 0 24px;
-  animation:ruleOut .85s var(--ease-out) .8s forwards;
-}
-.intro-name{
-  font-family:var(--serif);font-size:clamp(1.1rem,2.6vw,1.4rem);font-weight:600;
-  letter-spacing:.01em;color:rgba(247,244,236,.94);text-align:center;
-  opacity:0;transform:translateY(12px);
-  animation:nameIn .7s var(--ease-out) 1.15s forwards;
+  width:clamp(170px,34vw,320px);height:clamp(170px,34vw,320px);
+  border-radius:clamp(28px,6vw,52px);object-fit:cover;
+  opacity:0;transform:scale(.8);
+  animation:markIn 1s var(--ease-out) .12s forwards;
 }
 .intro-tag{
-  margin-top:14px;font-size:clamp(.8rem,2vw,.95rem);font-weight:400;
-  letter-spacing:.05em;color:var(--gold);text-align:center;
-  opacity:0;transform:translateY(12px);
-  animation:nameIn .7s var(--ease-out) 1.5s forwards;
+  display:block;text-align:center;
+  margin-top:clamp(30px,5vw,52px);
+  font-family:var(--serif);font-weight:600;
+  line-height:1.02;letter-spacing:-.035em;
+}
+.intro-tag .tl{display:block;padding-bottom:.08em}
+.intro-tag .a{
+  font-size:clamp(2.3rem,9vw,5.4rem);
+  color:var(--cream);
+  opacity:0;transform:translateY(26px);
+  animation:tagIn .85s var(--ease-out) .75s forwards;
+}
+.intro-tag .b{
+  font-size:clamp(2.3rem,9vw,5.4rem);
+  color:var(--gold);
+  opacity:0;transform:translateY(26px);
+  animation:tagIn .85s var(--ease-out) 1.05s forwards;
+}
+@keyframes tagIn{to{opacity:1;transform:none}}
+
+.intro-rule{
+  display:block;width:0;height:1px;background:rgba(201,162,39,.6);
+  margin:clamp(30px,5vw,50px) 0 20px;
+  animation:ruleOut .9s var(--ease-out) 1.5s forwards;
+}
+.intro-name{
+  font-size:clamp(.72rem,2.2vw,.86rem);font-weight:600;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(247,244,236,.45);text-align:center;
+  opacity:0;transform:translateY(10px);
+  animation:nameIn .7s var(--ease-out) 1.75s forwards;
 }
 @keyframes markIn{to{opacity:1;transform:scale(1)}}
-@keyframes ruleOut{to{width:clamp(150px,34vw,230px)}}
+@keyframes ruleOut{to{width:clamp(180px,42vw,300px)}}
 @keyframes nameIn{to{opacity:1;transform:none}}
 
 .intro.lift{transform:translateY(-100%);opacity:0}
@@ -791,10 +807,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 <div class="intro" id="intro" aria-hidden="true">
   <div class="intro-inner">
-    <img class="intro-mark" src="assets/logo.png" alt="" width="118" height="118">
+    <img class="intro-mark" src="assets/logo.png" alt="" width="300" height="300">
+    <span class="intro-tag">
+      <span class="tl a" data-i18n="intro.tag1">Need workers?</span>
+      <span class="tl b" data-i18n="intro.tag2">We got you :)</span>
+    </span>
     <span class="intro-rule"></span>
     <span class="intro-name">Bridgeway Global Services</span>
-    <span class="intro-tag" data-i18n="intro.tag">Need workers? We got you :)</span>
   </div>
 </div>
 
@@ -1187,7 +1206,8 @@ navLinks.addEventListener('click', function(e){
 
 // ---------- language: English / Montenegrin ----------
 var ME = {
-  "intro.tag":"Trebate radnike? Tu smo :)",
+  "intro.tag1":"Trebate radnike?",
+  "intro.tag2":"Tu smo :)",
   "nav.mission":"Misija",
   "nav.services":"Usluge",
   "nav.partners":"Partneri",
@@ -1298,7 +1318,7 @@ document.querySelectorAll('.lang button').forEach(function(b){
   }
 
   // hold long enough for the mark, rule and name to land, then lift
-  var t = setTimeout(lift, 2750);
+  var t = setTimeout(lift, 3200);
   // let an impatient visitor skip it
   intro.addEventListener('click', function(){ clearTimeout(t); lift(); });
 })();
