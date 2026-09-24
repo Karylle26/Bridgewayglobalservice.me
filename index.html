@@ -81,6 +81,17 @@
   --maxw:1180px;
   --serif:"Fraunces",Georgia,serif;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --display:clamp(3.2rem,8.2vw,7rem);
+  --h2:clamp(2.4rem,5.4vw,4.2rem);
+  --h3:clamp(1.2rem,1.9vw,1.5rem);
+  --lead:clamp(1.08rem,1.85vw,1.4rem);
+  --body:clamp(.97rem,1.15vw,1.06rem);
+  --micro:11px;
+
+  --gap-section:clamp(7rem,13vw,11.5rem);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:82px}
@@ -93,7 +104,7 @@ body{
 }
 img{max-width:100%;display:block}
 a{color:inherit}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(24px,4.5vw,64px)}
 
 /* ---------- Header ---------- */
 header{
@@ -158,6 +169,83 @@ header{
 }
 .nav-social a:hover{opacity:1;color:var(--gold);transform:translateY(-2px)}
 .nav-social svg{width:17px;height:17px;display:block;fill:currentColor}
+
+/* ---------- Custom cursor ---------- */
+.cursor{
+  position:fixed;top:0;left:0;z-index:350;pointer-events:none;
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(201,162,39,.85);
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:width .32s var(--ease),height .32s var(--ease),
+             opacity .3s ease,background .32s ease,border-color .32s ease;
+  will-change:transform;
+}
+.cursor.on{opacity:1}
+.cursor.grow{
+  width:58px;height:58px;
+  background:rgba(201,162,39,.14);
+  border-color:rgba(201,162,39,1);
+}
+.cursor.press{width:22px;height:22px}
+
+@media(hover:none),(pointer:coarse){.cursor{display:none}}
+@media(prefers-reduced-motion:reduce){.cursor{display:none}}
+
+/* ---------- Masked line reveals ---------- */
+.split{display:block;overflow:hidden}
+.split > i{
+  display:block;font-style:inherit;
+  transform:translateY(102%);
+  transition:transform .95s var(--ease-out);
+  transition-delay:var(--ld,0ms);
+}
+.split.in > i{transform:translateY(0)}
+
+@media(prefers-reduced-motion:reduce){
+  .split > i{transform:none;transition:none}
+}
+
+/* ---------- Opening sequence ---------- */
+.intro{
+  position:fixed;inset:0;z-index:400;
+  background:var(--green-900);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 1s var(--ease-out),opacity .6s ease .4s;
+}
+.intro-inner{display:flex;flex-direction:column;align-items:center}
+.intro-mark{
+  width:64px;height:64px;border-radius:15px;object-fit:cover;
+  opacity:0;transform:scale(.82);
+  animation:markIn .9s var(--ease-out) .15s forwards;
+}
+.intro-rule{
+  display:block;width:0;height:1px;background:var(--gold);
+  margin:26px 0 22px;
+  animation:ruleOut .85s var(--ease-out) .75s forwards;
+}
+.intro-name{
+  font-family:var(--serif);font-size:1.05rem;font-weight:600;
+  letter-spacing:.02em;color:rgba(247,244,236,.9);
+  opacity:0;transform:translateY(10px);
+  animation:nameIn .7s var(--ease-out) 1.1s forwards;
+}
+@keyframes markIn{to{opacity:1;transform:scale(1)}}
+@keyframes ruleOut{to{width:170px}}
+@keyframes nameIn{to{opacity:1;transform:none}}
+
+.intro.lift{transform:translateY(-100%);opacity:0}
+body.loading{overflow:hidden}
+body.loading .hero .eyebrow,
+body.loading .hero h1,
+body.loading .hero .lede,
+body.loading .hero .hero-cta,
+body.loading .hero .stats{animation-play-state:paused}
+
+@media(prefers-reduced-motion:reduce){
+  .intro{display:none}
+  body.loading{overflow:auto}
+}
 
 /* ---------- Interactive polish ---------- */
 .glow{
@@ -231,41 +319,41 @@ header{
 
 /* ---------- Hero ---------- */
 .hero{
-  padding:170px 0 90px;
+  padding:clamp(160px,22vh,230px) 0 clamp(80px,11vh,130px);
   background:
     radial-gradient(900px 480px at 85% -8%, rgba(201,162,39,.12), transparent 62%),
     radial-gradient(700px 400px at 5% 10%, rgba(11,59,40,.06), transparent 60%),
     var(--cream);
 }
 .eyebrow{
-  display:inline-flex;align-items:center;gap:9px;
-  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--green-700);font-weight:600;margin-bottom:26px;
+  display:inline-flex;align-items:center;gap:11px;
+  font-size:var(--micro);letter-spacing:.24em;text-transform:uppercase;
+  color:var(--green-700);font-weight:600;margin-bottom:32px;
 }
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
 h1{
   font-family:var(--serif);font-weight:600;
-  font-size:clamp(2.7rem,6.2vw,4.6rem);
-  line-height:1.03;letter-spacing:-.028em;color:var(--green-900);
-  max-width:16ch;
+  font-size:var(--display);
+  line-height:.96;letter-spacing:-.042em;color:var(--green-900);
+  max-width:13ch;
 }
 h1 em{font-style:italic;color:var(--gold);font-weight:400}
 .lede{
-  margin-top:26px;max-width:56ch;
-  font-size:clamp(1.02rem,1.6vw,1.2rem);
-  color:var(--muted);font-weight:300;
+  margin-top:34px;max-width:50ch;
+  font-size:var(--lead);line-height:1.62;
+  color:var(--muted);font-weight:300;letter-spacing:-.008em;
 }
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
 
 /* ---------- Stats ---------- */
 .stats{
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:rgba(11,59,40,.1);
+  gap:1px;margin-top:clamp(70px,11vh,120px);background:rgba(11,59,40,.1);
   border-top:1px solid rgba(11,59,40,.14);border-bottom:1px solid rgba(11,59,40,.14);
-  margin-top:88px;
 }
 .stat{
   background:rgba(247,244,236,.52);
+  padding-block:clamp(34px,5vw,54px);
   backdrop-filter:blur(2px);
   -webkit-backdrop-filter:blur(2px);
   padding:38px 30px;
@@ -274,25 +362,27 @@ h1 em{font-style:italic;color:var(--gold);font-weight:400}
 .stat:hover{background:rgba(247,244,236,.78)}
 .stat b{
   display:block;font-family:var(--serif);font-weight:600;
-  font-size:clamp(2.2rem,4.4vw,3.2rem);color:var(--green-900);
-  line-height:1;letter-spacing:-.02em;
+  font-size:clamp(2.6rem,5.2vw,4rem);color:var(--green-900);
+  line-height:.94;letter-spacing:-.035em;font-variant-numeric:tabular-nums;
 }
 .stat p{margin-top:10px;font-size:14px;font-weight:500;color:var(--green-800)}
 .stat small{display:block;margin-top:3px;font-size:12.5px;color:var(--muted)}
 
 /* ---------- Sections ---------- */
-section{padding:104px 0}
+section{padding:var(--gap-section) 0}
 .sec-label{
-  font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--gold);font-weight:600;margin-bottom:16px;
+  font-size:var(--micro);letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;margin-bottom:22px;
+  display:inline-flex;align-items:center;gap:11px;
 }
+.sec-label::before{content:"";width:22px;height:1px;background:var(--gold);opacity:.7}
 h2{
   font-family:var(--serif);font-weight:600;
-  font-size:clamp(2rem,4vw,3rem);line-height:1.08;
-  letter-spacing:-.025em;color:var(--green-900);max-width:15ch;
+  font-size:var(--h2);line-height:1.02;
+  letter-spacing:-.036em;color:var(--green-900);max-width:14ch;
 }
 h2 em{font-style:italic;color:var(--gold);font-weight:400}
-.sec-intro{margin-top:20px;max-width:62ch;color:var(--muted);font-weight:300;font-size:1.03rem}
+.sec-intro{margin-top:26px;max-width:56ch;color:var(--muted);font-weight:300;font-size:var(--lead);line-height:1.62;letter-spacing:-.006em}
 
 /* Mission */
 #mission{background:var(--green-900);color:var(--cream)}
@@ -311,17 +401,54 @@ h2 em{font-style:italic;color:var(--gold);font-weight:400}
 }
 .mv-card p{color:rgba(247,244,236,.82);font-weight:300;font-size:1.02rem}
 
-/* Services */
+/* Services — editorial rows */
 #services{background:var(--cream-2)}
-.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px}
-.svc-card{
-  background:var(--cream);border:1px solid var(--line);border-radius:14px;
-  padding:34px 30px 36px;transition:transform .25s,box-shadow .25s;
+.srows{margin-top:clamp(56px,7vw,88px);border-top:1px solid var(--line)}
+.srow{
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:baseline;gap:clamp(20px,3.5vw,52px);
+  padding:clamp(26px,3.6vw,40px) 0;
+  border-bottom:1px solid var(--line);
+  position:relative;
+  transition:padding-left .5s var(--ease);
 }
-.svc-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(11,59,40,.09)}
-.svc-card .tag{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
-.svc-card h3{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--green-900);margin:16px 0 12px;letter-spacing:-.01em}
-.svc-card p{font-size:14.5px;color:var(--muted);font-weight:300}
+.srow::after{
+  content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;
+  background:var(--gold);transition:width .7s var(--ease);
+}
+.srow:hover::after{width:100%}
+.srow:hover{padding-left:clamp(10px,1.6vw,22px)}
+
+.srow-no{
+  font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.1rem);
+  font-weight:600;color:var(--gold);opacity:.4;line-height:1;
+  font-variant-numeric:tabular-nums;
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.srow:hover .srow-no{opacity:1;transform:translateY(-2px)}
+
+.srow-main h3{
+  font-family:var(--serif);font-size:var(--h3);font-weight:600;
+  color:var(--green-900);letter-spacing:-.018em;line-height:1.2;
+}
+.srow-main p{
+  margin-top:10px;max-width:58ch;
+  font-size:var(--body);font-weight:300;color:var(--muted);line-height:1.62;
+  opacity:.72;transition:opacity .5s var(--ease);
+}
+.srow:hover .srow-main p{opacity:1}
+
+.srow-tag{
+  font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);opacity:.5;white-space:nowrap;
+  transition:opacity .5s var(--ease),color .5s var(--ease);
+}
+.srow:hover .srow-tag{opacity:1;color:var(--gold)}
+
+@media(max-width:860px){
+  .srow{grid-template-columns:auto 1fr;gap:18px}
+  .srow-tag{display:none}
+}
 
 /* Partners */
 #partners{padding:96px 0}
@@ -563,14 +690,6 @@ header.scrolled .nav{height:64px}
 .hero .stats{animation-delay:.52s}
 @keyframes rise{to{opacity:1;transform:none}}
 
-.svc-card{position:relative;overflow:hidden}
-.svc-card::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--gold);transform:scaleX(0);transform-origin:left;
-  transition:transform .5s cubic-bezier(.22,.61,.36,1);
-}
-.svc-card:hover::before{transform:scaleX(1)}
-
 .mv-card{transition:border-color .4s ease,background .4s ease}
 .mv-card:hover{border-color:rgba(227,199,101,.45);background:rgba(247,244,236,.06)}
 
@@ -602,7 +721,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 @media(max-width:960px){
   .mv{grid-template-columns:1fr}
   .ways{grid-template-columns:1fr}
-  .svc{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:680px){
   .nav{gap:16px}
@@ -619,7 +737,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .menu-btn{display:block}
   .nav .btn-solid{display:none}
   .hero{padding:130px 0 70px}
-  .stats,.svc{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
   .ways{grid-template-columns:1fr}
   section{padding:72px 0}
 }
@@ -627,7 +745,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 </head>
 <body id="top">
 
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-inner">
+    <img class="intro-mark" src="assets/logo.png" alt="" width="64" height="64">
+    <span class="intro-rule"></span>
+    <span class="intro-name">Bridgeway Global Services</span>
+  </div>
+</div>
+
+
 <div class="progress" id="progress"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
 
 <header>
   <div class="wrap nav">
@@ -782,36 +910,54 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     <div class="sec-label" data-i18n="svc.label">Services</div>
     <h2 data-i18n-html="svc.h2">What <em>we do</em></h2>
     <p class="sec-intro" data-i18n="svc.intro">A complete administrative layer between you and the Montenegrin authorities — built for employers who hire continuously and need predictability.</p>
-    <div class="svc">
-      <div class="svc-card">
-        <div class="tag" data-i18n="svc1t">01 / Documentation</div>
-        <h3 data-i18n="svc1h">Visa Documentation</h3>
-        <p data-i18n="svc1p">Expert preparation and review of all immigration forms, translated and certified to local standards.</p>
+    <div class="srows">
+      <div class="srow">
+        <span class="srow-no">01</span>
+        <div class="srow-main">
+          <h3 data-i18n="svc1h">Visa Documentation</h3>
+          <p data-i18n="svc1p">Expert preparation and review of all immigration forms, translated and certified to local standards.</p>
+        </div>
+        <span class="srow-tag" data-i18n="svc1t">01 / Documentation</span>
       </div>
-      <div class="svc-card">
-        <div class="tag" data-i18n="svc2t">02 / Submission</div>
-        <h3 data-i18n="svc2h">Application Submission</h3>
-        <p data-i18n="svc2p">Direct liaison with government authorities for filing — we walk every file through in person.</p>
+      <div class="srow">
+        <span class="srow-no">02</span>
+        <div class="srow-main">
+          <h3 data-i18n="svc2h">Application Submission</h3>
+          <p data-i18n="svc2p">Direct liaison with government authorities for filing — we walk every file through in person.</p>
+        </div>
+        <span class="srow-tag" data-i18n="svc2t">02 / Submission</span>
       </div>
-      <div class="svc-card">
-        <div class="tag" data-i18n="svc3t">03 / Tracking</div>
-        <h3 data-i18n="svc3h">Status Monitoring</h3>
-        <p data-i18n="svc3p">Real-time tracking and updates on application progress, with a single dashboard per employer.</p>
+      <div class="srow">
+        <span class="srow-no">03</span>
+        <div class="srow-main">
+          <h3 data-i18n="svc3h">Status Monitoring</h3>
+          <p data-i18n="svc3p">Real-time tracking and updates on application progress, with a single dashboard per employer.</p>
+        </div>
+        <span class="srow-tag" data-i18n="svc3t">03 / Tracking</span>
       </div>
-      <div class="svc-card">
-        <div class="tag" data-i18n="svc4t">04 / Residency</div>
-        <h3 data-i18n="svc4h">Boravak Requirements</h3>
-        <p data-i18n="svc4p">Guidance on residency (Boravak) compliance, renewals, and dependent registrations.</p>
+      <div class="srow">
+        <span class="srow-no">04</span>
+        <div class="srow-main">
+          <h3 data-i18n="svc4h">Boravak Requirements</h3>
+          <p data-i18n="svc4p">Guidance on residency (Boravak) compliance, renewals, and dependent registrations.</p>
+        </div>
+        <span class="srow-tag" data-i18n="svc4t">04 / Residency</span>
       </div>
-      <div class="svc-card">
-        <div class="tag" data-i18n="svc5t">05 / Compliance</div>
-        <h3 data-i18n="svc5h">Compliance Alerts</h3>
-        <p data-i18n="svc5p">Proactive notifications for expirations, regulatory changes, and required actions — ahead of time.</p>
+      <div class="srow">
+        <span class="srow-no">05</span>
+        <div class="srow-main">
+          <h3 data-i18n="svc5h">Compliance Alerts</h3>
+          <p data-i18n="svc5p">Proactive notifications for expirations, regulatory changes, and required actions — ahead of time.</p>
+        </div>
+        <span class="srow-tag" data-i18n="svc5t">05 / Compliance</span>
       </div>
-      <div class="svc-card">
-        <div class="tag" data-i18n="svc6t">06 / Support</div>
-        <h3 data-i18n="svc6h">Ongoing Support</h3>
-        <p data-i18n="svc6p">Dedicated account management for all your expatriate staff, from arrival through long-term residency.</p>
+      <div class="srow">
+        <span class="srow-no">06</span>
+        <div class="srow-main">
+          <h3 data-i18n="svc6h">Ongoing Support</h3>
+          <p data-i18n="svc6p">Dedicated account management for all your expatriate staff, from arrival through long-term residency.</p>
+        </div>
+        <span class="srow-tag" data-i18n="svc6t">06 / Support</span>
       </div>
     </div>
   </div>
@@ -956,6 +1102,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 </footer>
 
 <script>
+var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // year
 document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -1072,7 +1220,25 @@ document.querySelectorAll('.lang button').forEach(function(b){
   if (saved === 'me') setLang('me');
 })();
 
-var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// ---------- opening sequence ----------
+(function(){
+  var intro = document.getElementById('intro');
+  if (!intro) return;
+  if (reduceMotion){ intro.remove(); return; }
+
+  document.body.classList.add('loading');
+
+  function lift(){
+    intro.classList.add('lift');
+    document.body.classList.remove('loading');
+    setTimeout(function(){ intro.remove(); }, 1200);
+  }
+
+  // hold long enough for the mark, rule and name to land, then lift
+  var t = setTimeout(lift, 2150);
+  // let an impatient visitor skip it
+  intro.addEventListener('click', function(){ clearTimeout(t); lift(); });
+})();
 
 // scroll progress bar + header state
 (function(){
@@ -1098,7 +1264,7 @@ var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-moti
   if (reduceMotion || !('IntersectionObserver' in window)) return;
   var groups = [
     ['.sec-label', 0], ['h2', 60], ['.sec-intro', 120],
-    ['.mv-card', 0], ['.svc-card', 0],
+    ['.mv-card', 0], ['.srow', 0],
     ['.partners-title', 0],
     ['.way', 0], ['.reply-note', 200]
   ];
@@ -1117,6 +1283,104 @@ var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-moti
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+
+// ---------- a gold ring that follows the pointer ----------
+(function(){
+  var cur = document.getElementById('cursor');
+  if (!cur) return;
+  if (reduceMotion || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches)){
+    cur.remove(); return;
+  }
+
+  var tx = 0, ty = 0, x = 0, y = 0, running = false;
+
+  function loop(){
+    // trail slightly behind the pointer, which is what makes it feel weighted
+    x += (tx - x) * 0.22;
+    y += (ty - y) * 0.22;
+    cur.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%)';
+    if (Math.abs(tx - x) > .1 || Math.abs(ty - y) > .1){ requestAnimationFrame(loop); }
+    else { running = false; }
+  }
+
+  document.addEventListener('mousemove', function(e){
+    tx = e.clientX; ty = e.clientY;
+    cur.classList.add('on');
+    if (!running){ running = true; requestAnimationFrame(loop); }
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', function(){ cur.classList.remove('on'); });
+  document.addEventListener('mousedown', function(){ cur.classList.add('press'); });
+  document.addEventListener('mouseup',   function(){ cur.classList.remove('press'); });
+
+  // swell over anything you can actually click
+  var hot = 'a, button, .srow, .pcard, .way, .lang button';
+  document.addEventListener('mouseover', function(e){
+    if (e.target.closest(hot)) cur.classList.add('grow');
+  });
+  document.addEventListener('mouseout', function(e){
+    if (e.target.closest(hot)) cur.classList.remove('grow');
+  });
+})();
+
+// ---------- headings rise line by line from behind a mask ----------
+(function(){
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+  var targets = document.querySelectorAll('h1, h2, .lede, .sec-intro');
+
+  // wrap each visual line in a mask, working out the breaks from where words land
+  function split(el){
+    if (el.dataset.split === '1') return;
+    if (!el.dataset.html) el.dataset.html = el.innerHTML;
+
+    var html = el.dataset.html;
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none';
+    probe.style.width = el.getBoundingClientRect().width + 'px';
+    probe.style.font = getComputedStyle(el).font;
+    probe.style.letterSpacing = getComputedStyle(el).letterSpacing;
+    probe.innerHTML = html.replace(/(\S+)/g, '<span class="w">$1</span>');
+    el.parentNode.insertBefore(probe, el);
+
+    var lines = [], top = null;
+    probe.querySelectorAll('.w').forEach(function(w){
+      var t = Math.round(w.getBoundingClientRect().top);
+      if (t !== top){ lines.push([]); top = t; }
+      lines[lines.length - 1].push(w.outerHTML.replace(/^<span class="w">|<\/span>$/g, ''));
+    });
+    probe.remove();
+
+    if (lines.length < 1){ return; }
+
+    el.innerHTML = lines.map(function(words, i){
+      return '<span class="split" style="--ld:' + (i * 85) + 'ms"><i>' +
+             words.join(' ') + '</i></span>';
+    }).join('');
+    el.dataset.split = '1';
+  }
+
+  var io = new IntersectionObserver(function(entries, obs){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target;
+      split(el);
+      requestAnimationFrame(function(){
+        el.querySelectorAll('.split').forEach(function(s){ s.classList.add('in'); });
+      });
+      obs.unobserve(el);
+    });
+  }, { threshold: .2, rootMargin: '0px 0px -60px 0px' });
+
+  targets.forEach(function(el){ io.observe(el); });
+
+  // switching language rewrites the text, so allow a fresh split next time
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){
+      targets.forEach(function(el){ el.dataset.split = ''; el.dataset.html = ''; });
+    });
+  });
 })();
 
 // ---------- interactive polish ----------
