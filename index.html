@@ -534,7 +534,8 @@ h2 em{font-style:italic;color:var(--gold);font-weight:400}
 .partners-title::after{content:"";display:block;width:34px;height:1px;background:var(--gold);margin:16px auto 0}
 
 .pgrid{
-  display:grid;grid-template-columns:repeat(6,1fr);gap:16px;
+  display:flex;flex-wrap:wrap;justify-content:center;
+  --cols:6;--pgap:16px;gap:var(--pgap);
   position:relative;perspective:1400px;
 }
 .pgrid::after{
@@ -551,6 +552,7 @@ h2 em{font-style:italic;color:var(--gold);font-weight:400}
 }
 
 .pcard{
+  flex:0 0 calc((100% - (var(--cols) - 1) * var(--pgap)) / var(--cols));
   position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;
   background:var(--cream-2);
   box-shadow:0 2px 6px rgba(11,59,40,.08);
@@ -603,10 +605,10 @@ h2 em{font-style:italic;color:var(--gold);font-weight:400}
   color:var(--gold-soft);
 }
 
-@media(max-width:1080px){.pgrid{grid-template-columns:repeat(4,1fr);gap:13px}}
+@media(max-width:1080px){.pgrid{--cols:4;--pgap:13px}}
 @media(max-width:680px){
   #partners{padding:72px 0}
-  .pgrid{grid-template-columns:repeat(3,1fr);gap:10px}
+  .pgrid{--cols:3;--pgap:10px}
   .pcard-meta{padding:24px 8px 9px}
   .pcard-meta b{font-size:.74rem}
   .pcard-meta em{font-size:8px;letter-spacing:.1em}
@@ -1097,6 +1099,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
       <div class="pcard">
         <img src="assets/partners/la-unica.jpg" alt="La Unica" loading="lazy" width="800" height="800">
         <span class="pcard-meta"><b>La Unica</b><em>Restaurant</em></span>
+      </div>
+      <div class="pcard">
+        <img src="assets/partners/papagaj.jpg" alt="Papagaj" loading="lazy" width="800" height="800">
+        <span class="pcard-meta"><b>Papagaj</b><em>Restaurant</em></span>
       </div>
       <div class="pcard">
         <img src="assets/partners/gastro-pub.jpg" alt="B Gastro Pub" loading="lazy" width="400" height="400">
